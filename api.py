@@ -33,10 +33,6 @@ class BookWritingResultOut(BaseModel):
     data: Union[BookWritingSuccessOut, BookWritingFailedOut]
 
 
-# This should be a "Depends", but let's ignore that for now
-book_writing_service = book_writing.BookWritingService()
-
-
 def bookwritingresultout_from_book_writing_result(
     result: book_writing.Result,
 ) -> BookWritingResultOut:
@@ -60,6 +56,11 @@ def bookwritingresultout_from_book_writing_result(
         status=result.status,
         data=data,
     )
+
+
+# This should be a "Depends", but let's ignore that for now
+book_writing_service = book_writing.BookWritingService()
+
 
 
 @app.post("/write-book")
