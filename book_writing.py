@@ -12,6 +12,7 @@ class Success(BaseModel):
     text: str
     time_to_generate: timedelta
 
+
 class Failed(BaseModel):
     reason: str
 

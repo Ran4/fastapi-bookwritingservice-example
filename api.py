@@ -1,6 +1,5 @@
 ##############################################
 # BookWritingService API
-from enum import Enum
 from typing import Union, cast
 
 from fastapi import FastAPI
@@ -60,7 +59,6 @@ def bookwritingresultout_from_book_writing_result(
 
 # This should be a "Depends", but let's ignore that for now
 book_writing_service = book_writing.BookWritingService()
-
 
 
 @app.post("/write-book")
