@@ -33,15 +33,13 @@ class BookWritingResultOut(BaseModel):
     data: Union[BookWritingSuccessOut, BookWritingFailedOut]
 
 
+# This should be a "Depends", but let's ignore that for now
 book_writing_service = book_writing.BookWritingService()
 
 
-@app.post("/write-book")
-async def write_book(book_writing_in: BookWritingIn):
-    result: book_writing.Result = book_writing_service.write_book(
-        book_title=book_writing_in.book_title,
-    )
-
+def bookwritingresultout_from_book_writing_result(
+    result: book_writing.Result,
+) -> BookWritingResultOut:
     if result.status == book_writing.ResultStatus.SUCCESS:
         success = cast(book_writing.Success, result.data)
         data = BookWritingSuccessOut(
@@ -62,3 +60,12 @@ async def write_book(book_writing_in: BookWritingIn):
         status=result.status,
         data=data,
     )
+
+
+@app.post("/write-book")
+async def write_book(book_writing_in: BookWritingIn):
+    result: book_writing.Result = book_writing_service.write_book(
+        book_title=book_writing_in.book_title,
+    )
+
+    return bookwritingresultout_from_book_writing_result(result)
