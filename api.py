@@ -20,8 +20,10 @@ class BookWritingSuccessOut(BaseModel):
     book_title: str
     text: str
 
+
 class BookWritingFailedOut(BaseModel):
     reason: str
+
 
 class BookWritingResultOut(BaseModel):
     """
