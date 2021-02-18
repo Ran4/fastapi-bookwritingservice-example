@@ -15,14 +15,17 @@ class Success(BaseModel):
 class Failed(BaseModel):
     reason: str
 
+
 class ResultStatus(str, Enum):
     SUCCESS = "SUCCESS"
     FAILED = "FAILED"
+
 
 class Result(BaseModel):
     status: ResultStatus
     worker_name: str
     data: Union[Success, Failed]
+
 
 class BookWritingService:
     def write_book(self, book_title: str) -> Result:
